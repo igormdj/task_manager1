@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  completed: false
+  due_date: 2026-05-06 16:15:08
+  priority: 1
+  project: one
+
+two:
+  title: MyString
+  description: MyText
+  completed: false
+  due_date: 2026-05-06 16:15:08
+  priority: 1
+  project: two
