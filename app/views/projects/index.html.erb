@@ -1,0 +1,14 @@
+<h1>Meus Projetos</h1>
+
+<% @projects.each do |projeto| %>
+    <div>
+        <h2><%= projeto.title %></h2>
+        <% if projeto.description.blank? %>
+            <p><em>Sem descrição disponível</em></p>
+        <% else %>
+            <p><%= projeto.description %></p>
+        <% end %>
+        <%= link_to "Ver detalhes", project_path(projeto) %>
+    </div>
+    <hr>
+<% end %>

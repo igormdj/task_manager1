@@ -1,9 +1,9 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Limpa o banco antes de criar para não duplicar
+Project.destroy_all
+
+#Cria 3 projetos de teste
+p1 = Project.create(title: "Aprender Rails", description: "Estudar MVC e rotas")
+p2 = Project.create(title: "Projeto Secreto", description: "") # Esse vai cair no seu 'if' de descrição vazia!
+p3 = Project.create(title: "Academia", description: "Treinar 4x por semana")
+
+puts "Projetos criados com sucesso"
