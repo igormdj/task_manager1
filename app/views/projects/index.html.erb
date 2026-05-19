@@ -8,7 +8,9 @@
         <% else %>
             <p><%= projeto.description %></p>
         <% end %>
-        <%= link_to "Ver detalhes", project_path(projeto) %>
+        <%= link_to "Ver detalhes", project_path(projeto), class: "btn-ver" %>
+        <%= link_to "Editar", edit_project_path(projeto), class: "btn-editar" %>
+        <%= link_to "Excluir", project_path(projeto), data: { turbo_method: :delete, turbo_confirm: "Confirma?" }, class: "btn-deletar" %>
     </div>
     <hr>
 <% end %>

@@ -1,0 +1,12 @@
+<h1 class="titulo-pagina">Editar Projeto</h1>
+
+<div class="caixa-formulario">
+    <%= form_with model: @project do |f| %>
+        <div class="campo">
+            <%= f.label :title, "Nome do Projeto" %>
+            <%= f.text_field :title, class: "input-texto" %>
+        </div>
+
+        <%= f.submit "Salvar Alterações", class: "botao-sucesso" %>
+    <% end %>
+</div>
