@@ -6,14 +6,20 @@
 <h2>Tarefas do Projeto</h2>
 
 <!-- 1. Lista de Tarefas -->
-<div id="tasks">
+<div id="tasks" class="mt-8 space-y-4">
     <% @project.tasks.each do |task| %>
-        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-            <strong><%= task.title %></strong>
-            <p><%= task.description %></p>
+        <div class="bg-slate-800 border border-slate-700 p-5 rounded-lg shadow-sm flex justify-between items-center hover:border-cyan-500/50 transition-colors">
 
-            <!-- Novo botão de excluir a tarefa -->
-            <%= link_to "Excluir Tarefa", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir esta tarefa?" }, style: "color: red; font-size:12px;" %>
+            <!-- Lado esquerdo: Textos -->
+            <div>
+                <strong class="text-cyan-400 text-lg block mb-1"><%= task.title %></strong>
+                <p class="text-slate-400 text-sm"><%= task.description %></p>
+            </div>
+
+            <!-- Lado direito: botão de excluir a tarefa -->
+            <div>
+                <%= link_to "Excluir Tarefa", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir esta tarefa?" }, class: "bg-red-900/30 text-red-400 hover:bg-red-900/50 px-3 py-1 rounded text-sm transition-colors border border-red-900/50" %>
+                </div
         </div>
     <% end %>
 </div>
@@ -21,21 +27,26 @@
 <hr>
 
 <!-- 2. Formulário para Adicionar Nova Tarefa -->
-<h3>Adicionar Nova Tarefa</h3>
+<div class="mt-10 bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+  <h3 class="text-xl font-bold text-cyan-400 mb-4">Adicionar Nova Tarefa</h3>
 
-<%= form_with model: [ @project, Task.new ] do |f| %>
+  <%= form_with model: [ @project, Task.new ], class: "space-y-4" do |f| %>
     <div>
-        <%= f.label :title, "Título da Tarefa" %><br>
-        <%= f.text_field :title %>
+      <%= f.label :title, "Título da Tarefa", class: "block text-sm font-medium text-slate-400 mb-1" %>
+      <%= f.text_field :title, class: "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors" %>
+    </div>
+    
+    <div>
+      <%= f.label :description, "Descrição (opcional)", class: "block text-sm font-medium text-slate-400 mb-1" %>
+      <%= f.text_area :description, rows: 3, class: "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors" %>
     </div>
 
-    <div>
-        <%= f.label :description, "Descrição da Tarefa" %><br>
-        <%= f.text_area :description %>
+    <div class="pt-2">
+      <!-- O botão do Desafio vai aqui -->
+      <%= f.submit "Salvar Tarefa", class: "bg-emerald-600 text-white rounded-lg px-5 py-2 hover:bg-emerald-500" %>
     </div>
-
-        <%= f.submit "Salvar Tarefa" %>
-<% end %>
+  <% end %>
+</div>
 
 <br>
 <%= link_to "Voltar para a lista", projects_path %>
