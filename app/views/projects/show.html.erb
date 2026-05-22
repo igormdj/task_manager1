@@ -20,7 +20,12 @@
             ⏳    <span>Prazo: <%= task.due_date.strftime("%d/%m/%Y") %></span>
                   </div>
                 <% end %>
-               <% if task.completed? %>
+            </div>
+
+            <div class="p-4 bg-white rounded-lg shadow border border-gray-200">
+              <p class="text-lg font-bold text-gray-800"><%= task.title %> </p>
+              <div>
+                <% if task.completed? %>
                   <div class="flex items-center gap-2 text-xs text-emerald-500 bg-emerald-900/50 inline-flex px-2 py-1 rounded border border-emerald-900/50">
                   <span>✅ Concluída</span>
                   </div>
@@ -29,12 +34,7 @@
                   <span>⏳ Pendente</span>
                   </div>
                 <% end %>
-            </div>
-
-            <div class="p-4 bg-white rounded-lg shadow border border-gray-200">
-              <p class="text-lg font-bold text-gray-800">
-                <%= task.title %>
-              </p>
+              </div>
             </div>
 
             <!-- Lado direito: botão de excluir a tarefa -->
