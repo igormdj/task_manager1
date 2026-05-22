@@ -14,6 +14,21 @@
             <div>
                 <strong class="text-cyan-400 text-lg block mb-1"><%= task.title %></strong>
                 <p class="text-slate-400 text-sm"><%= task.description %></p>
+
+                <% if task.due_date.present? %>
+                  <div class="flex items-center gap-2 text-xs text-slate-500 bg-slate-900/50 inline-flex px-2 py-1 rounded border border-slate-700/50">
+            ⏳    <span>Prazo: <%= task.due_date.strftime("%d/%m/%Y") %></span>
+                  </div>
+                <% end %>
+               <% if task.completed? %>
+                  <div class="flex items-center gap-2 text-xs text-emerald-500 bg-emerald-900/50 inline-flex px-2 py-1 rounded border border-emerald-900/50">
+                  <span>✅ Concluída</span>
+                  </div>
+                <% else %>
+                  <div class="flex items-center gap-2 text-xs text-amber-500 bg-amber-900/50 inline-flex px-2 py-1 rounded border border-amber-900/50">
+                  <span>⏳ Pendente</span>
+                  </div>
+                <% end %>
             </div>
 
             <!-- Lado direito: botão de excluir a tarefa -->
@@ -39,6 +54,16 @@
     <div>
       <%= f.label :description, "Descrição (opcional)", class: "block text-sm font-medium text-slate-400 mb-1" %>
       <%= f.text_area :description, rows: 3, class: "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors" %>
+    </div>
+
+    <div>
+      <%= f.label :due_date, "Prazo de Entrega", class: "block text-sm font-medium text-slate-400 mb-1" %>
+      <%= f.date_field :due_date, class: "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" %>
+    </div>
+
+    <div class="flex items-center gap-2 pt-2">
+      <%= f.check_box :completed, class: "w-4 h-4 text-cyan-600 bg-slate-900 border-slate-700 rounded focus:ring-cyan-500 focus:ring-offset-slate-800 cursor-pointer" %>
+      <%= f.label :completed, "Tarefa já está concluída?", class: "text-sm text-slate-400 cursor-pointer" %>
     </div>
 
     <div class="pt-2">
