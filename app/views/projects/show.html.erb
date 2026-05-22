@@ -31,6 +31,12 @@
                 <% end %>
             </div>
 
+            <div class="p-4 bg-white rounded-lg shadow border border-gray-200">
+              <p class="text-lg font-bold text-gray-800">
+                <%= task.title %>
+              </p>
+            </div>
+
             <!-- Lado direito: botão de excluir a tarefa -->
             <div>
                 <%= link_to "Excluir Tarefa", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir esta tarefa?" }, class: "bg-red-900/30 text-red-400 hover:bg-red-900/50 px-3 py-1 rounded text-sm transition-colors border border-red-900/50" %>
