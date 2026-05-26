@@ -1,83 +1,83 @@
-<h1><%= @project.title %></h1>
-<p><%= @project.description %></p>
+<div class="max-w-4xl mx-auto p-6">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-white"><%= @project.title %></h1>
+    <p class="text-slate-400 mt-2"><%= @project.description %></p>
+  </div>
 
-<hr>
+  <hr class="border-slate-700 my-6">
 
-<h2>Tarefas do Projeto</h2>
-
-<!-- 1. Lista de Tarefas -->
-<div id="tasks" class="mt-8 space-y-4">
+  <h2 class="text-xl font-semibold text-white mb-4">Tarefas do Projeto</h2>
+  <div id="tasks" class="space-y-4">
     <% @project.tasks.each do |task| %>
-        <div class="bg-slate-800 border border-slate-700 p-5 rounded-lg shadow-sm flex justify-between items-center hover:border-cyan-500/50 transition-colors">
-
-            <!-- Lado esquerdo: Textos -->
-            <div>
-                <strong class="text-cyan-400 text-lg block mb-1"><%= task.title %></strong>
-                <p class="text-slate-400 text-sm"><%= task.description %></p>
-
-                <% if task.due_date.present? %>
-                  <div class="flex items-center gap-2 text-xs text-slate-500 bg-slate-900/50 inline-flex px-2 py-1 rounded border border-slate-700/50">
-            ⏳    <span>Prazo: <%= task.due_date.strftime("%d/%m/%Y") %></span>
-                  </div>
-                <% end %>
-            </div>
-
-            <div class="p-4 bg-white rounded-lg shadow border border-gray-200">
-              <p class="text-lg font-bold text-gray-800"><%= task.title %> </p>
-              <div>
-                <% if task.completed? %>
-                  <div class="flex items-center gap-2 text-xs text-emerald-500 bg-emerald-900/50 inline-flex px-2 py-1 rounded border border-emerald-900/50">
-                  <span>✅ Concluída</span>
-                  </div>
-                <% else %>
-                  <div class="flex items-center gap-2 text-xs text-amber-500 bg-amber-900/50 inline-flex px-2 py-1 rounded border border-amber-900/50">
-                  <span>⏳ Pendente</span>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-
-            <!-- Lado direito: botão de excluir a tarefa -->
-            <div>
-                <%= link_to "Excluir Tarefa", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir esta tarefa?" }, class: "bg-red-900/30 text-red-400 hover:bg-red-900/50 px-3 py-1 rounded text-sm transition-colors border border-red-900/50" %>
-                </div
+      <div class="bg-slate-800 border border-slate-700 p-5 rounded-lg flex items-center hover:border-cyan-500/50 transition-colors">
+        
+        <div class="mr-4">
+          <span class="<%= task.priority_color %> text-white text-[10px] px-2 py-0.5 rounded-full uppercase">
+          <%= task.priority_label %>
+          </span>
         </div>
+
+        <div class="flex-1">
+          <strong class="text-cyan-400 text-lg block"><%= task.title %></strong>
+          <p class="text-slate-400 text-sm mb-2"><%= task.description %></p>
+          
+          <div class="flex gap-2">
+            <% if task.completed? %>
+              <span class="text-xs text-emerald-500 bg-emerald-900/30 px-2 py-0.5 rounded border border-emerald-900">✅ Concluída</span>
+            <% else %>
+              <span class="text-xs text-amber-500 bg-amber-900/30 px-2 py-0.5 rounded border border-amber-900">⏳ Pendente</span>
+            <% end %>
+
+            <% if task.due_date.present? %>
+              <span class="text-xs text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-700">⏳ <%= task.due_date.strftime("%d/%m/%Y") %></span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="ml-4">
+          <%= link_to "Excluir", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "text-red-400 hover:text-red-300 text-sm" %>
+        </div>
+      </div>
     <% end %>
+  </div>
+
+  <hr class="border-slate-700 my-10">
+
+  <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+    <h3 class="text-xl font-bold text-cyan-400 mb-4">Adicionar Nova Tarefa</h3>
+    <%= form_with model: [@project, @project.tasks.build], class: "space-y-4" do |f| %>
+      <div>
+        <%= f.label :title, "Título", class: "block text-sm font-medium text-slate-400" %>
+        <%= f.text_field :title, class: "w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-white" %>
+      </div>
+      
+      <div>
+        <%= f.label :description, "Descrição", class: "block text-sm font-medium text-slate-400" %>
+        <%= f.text_area :description, rows: 3, class: "w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-white" %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <%= f.label :due_date, "Prazo", class: "block text-sm font-medium text-slate-400" %>
+          <%= f.date_field :due_date, class: "w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-white" %>
+        </div>
+      
+        <div>
+        <%= f.label :priority, "Prioridade", class: "block text-sm font-medium text-slate-400" %>
+        <%= f.select :priority, Task.priorities.keys.map { |p| [p.humanize, p] }, {}, { class: "w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-white" } %>
+      </div>
+     
+
+      <div class="flex items-center gap-2">
+        <%= f.check_box :completed %>
+        <%= f.label :completed, "Tarefa concluída?", class: "text-sm text-slate-400" %>
+      </div>
+
+      <%= f.submit "Salvar Tarefa", class: "bg-emerald-600 text-white px-5 py-2 rounded-lg hover:bg-emerald-500" %>
+    <% end %>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to "← Voltar aos Projetos", projects_path, class: "text-slate-500 hover:text-white" %>
+  </div>
 </div>
-
-<hr>
-
-<!-- 2. Formulário para Adicionar Nova Tarefa -->
-<div class="mt-10 bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-  <h3 class="text-xl font-bold text-cyan-400 mb-4">Adicionar Nova Tarefa</h3>
-
-  <%= form_with model: [ @project, Task.new ], class: "space-y-4" do |f| %>
-    <div>
-      <%= f.label :title, "Título da Tarefa", class: "block text-sm font-medium text-slate-400 mb-1" %>
-      <%= f.text_field :title, class: "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors" %>
-    </div>
-    
-    <div>
-      <%= f.label :description, "Descrição (opcional)", class: "block text-sm font-medium text-slate-400 mb-1" %>
-      <%= f.text_area :description, rows: 3, class: "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors" %>
-    </div>
-
-    <div>
-      <%= f.label :due_date, "Prazo de Entrega", class: "block text-sm font-medium text-slate-400 mb-1" %>
-      <%= f.date_field :due_date, class: "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" %>
-    </div>
-
-    <div class="flex items-center gap-2 pt-2">
-      <%= f.check_box :completed, class: "w-4 h-4 text-cyan-600 bg-slate-900 border-slate-700 rounded focus:ring-cyan-500 focus:ring-offset-slate-800 cursor-pointer" %>
-      <%= f.label :completed, "Tarefa já está concluída?", class: "text-sm text-slate-400 cursor-pointer" %>
-    </div>
-
-    <div class="pt-2">
-      <!-- O botão do Desafio vai aqui -->
-      <%= f.submit "Salvar Tarefa", class: "bg-emerald-600 text-white rounded-lg px-5 py-2 hover:bg-emerald-500" %>
-    </div>
-  <% end %>
-</div>
-
-<br>
-<%= link_to "Voltar para a lista", projects_path %>
