@@ -1,5 +1,22 @@
 class Task < ApplicationRecord
   belongs_to :project
-
   validates :title, presence: true
+  validates :priority, presence: true
+
+  # Defina o enum de forma simples
+  enum :priority, { low: 0, medium: 1, high: 2 }
+
+  def priority_label
+    priority&.humanize || "Sem prioridade"
+  end
+
+  
+  def priority_color
+    case priority
+    when 'low' then 'bg-blue-600'
+    when 'medium' then 'bg-amber-600'
+    when 'high' then 'bg-red-600'
+    else 'bg-slate-600'
+    end
+  end
 end
