@@ -8,38 +8,27 @@
 
   <h2 class="text-xl font-semibold text-white mb-4">Tarefas do Projeto</h2>
   <div id="tasks" class="space-y-4">
-    <% @project.tasks.each do |task| %>
-      <div class="bg-slate-800 border border-slate-700 p-5 rounded-lg flex items-center hover:border-cyan-500/50 transition-colors">
-        
-        <div class="mr-4">
-          <span class="<%= task.priority_color %> text-white text-[10px] px-2 py-0.5 rounded-full uppercase">
-          <%= task.priority_label %>
-          </span>
-        </div>
+  <% @project.tasks.each do |task| %>
+    <div class="bg-slate-800 border border-slate-700 p-5 rounded-lg flex items-center justify-between hover:border-cyan-500 transition-colors">
+      
+      <div class="flex items-center gap-4 flex-1">
+        <%= button_to toggle_project_task_path(@project, task), method: :patch, class: "text-2xl" do %>
+          <%= task.completed? ? "✅" : "⬜" %>
+        <% end %>
 
-        <div class="flex-1">
-          <strong class="text-cyan-400 text-lg block"><%= task.title %></strong>
-          <p class="text-slate-400 text-sm mb-2"><%= task.description %></p>
-          
-          <div class="flex gap-2">
-            <% if task.completed? %>
-              <span class="text-xs text-emerald-500 bg-emerald-900/30 px-2 py-0.5 rounded border border-emerald-900">✅ Concluída</span>
-            <% else %>
-              <span class="text-xs text-amber-500 bg-amber-900/30 px-2 py-0.5 rounded border border-amber-900">⏳ Pendente</span>
-            <% end %>
-
-            <% if task.due_date.present? %>
-              <span class="text-xs text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-700">⏳ <%= task.due_date.strftime("%d/%m/%Y") %></span>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="ml-4">
-          <%= link_to "Excluir", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "text-red-400 hover:text-red-300 text-sm" %>
+        <div>
+          <strong class="text-white text-lg"><%= task.title %></strong>
+          <p class="text-slate-400 text-sm"><%= task.description %></p>
         </div>
       </div>
-    <% end %>
-  </div>
+
+      <div class="flex items-center gap-3">
+        <%= link_to "Editar", edit_project_task_path(@project, task), class: "text-cyan-400 hover:text-cyan-300 text-sm" %>
+        <%= link_to "Excluir", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "text-red-500 text-sm" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
   <hr class="border-slate-700 my-10">
 
