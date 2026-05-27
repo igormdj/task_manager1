@@ -1,21 +1,27 @@
 class TasksController < ApplicationController
-    def create
-        @project = Project.find(params[:project_id])
+  # Isso executa antes de qualquer método abaixo
+  before_action :set_project
 
-        @task = @project.tasks.create(task_params)
+  def edit
+    @task = @project.tasks.find(params[:id])
+  end
 
-        redirect_to project_path(@project), notice: "Tarefa criada com sucesso!"
+  def update
+    @task = @project.tasks.find(params[:id])
+    if @task.update(task_params)
+      redirect_to project_path(@project), notice: "Tarefa atualizada!"
+    else
+      render :edit # Se falhar, mostra o form de novo
     end
+  end
 
-    def destroy
-        @project = Project.find(params[:project_id])
-        @task = @project.tasks.find(params[:id])
-        @task.destroy
-        redirect_to project_path(@project), notice: "Tarefa deletada com sucesso!"
-    end
+  private
 
-    private
-    def task_params
-        params.require(:task).permit(:title, :description, :completed, :due_date, :priority)
-    end
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
+
+  def task_params
+    params.require(:task).permit(:title, :description, :completed, :due_date, :priority)
+  end
 end
