@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :project
-  validates :title, presence: true
+  validates :title, presence: true, length: { minimum: 5 }
   validates :priority, presence: true
 
   # Defina o enum de forma simples

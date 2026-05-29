@@ -4,9 +4,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :destroy, :toggle]
 
   def create
-    @project = Project.find(params[:project_id])
-    @task = @project.tasks.create(task_params)
-    redirect_to project_path(@project), notice: "Tarefa criada!"
+    @task = @project.tasks.build(task_params)
+    if @task.save
+      redirect_to project_path(@project), notice: "Tarefa criada!"
+    else
+      redirect_to project_path(@project), alert: "Erro ao criar tarefa: " + @task.errors.full_messages.to_sentence
+    end
   end
 
   def edit
