@@ -42,7 +42,11 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = @project.tasks.find(params[:id])
+    @task = @project.tasks.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to project_path(@project), alert: "Tarefa não encontrada."
+    end
   end
 
   def task_params
