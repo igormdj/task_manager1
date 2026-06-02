@@ -1,0 +1,13 @@
+<%= form_with model: @project do |form| %> 
+    <div>
+        <%= form.label :title, "Título do Projeto" %>
+        <%= form.text_field :title %>
+    </div>
+
+    <div>
+        <%= form.label :description, "Descrição do Projeto" %>
+        <%= form.text_area :description %>
+    </div>
+
+    <%= form.submit "Criar Projeto" %>
+<% end %>

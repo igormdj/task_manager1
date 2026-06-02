@@ -1,0 +1,24 @@
+<%= form_with model: [@project, @task] do |f| %>
+    <div class="mb-4">
+      <%= f.label :title, "Título", class: "block text-slate-400" %>
+      <%= f.text_field :title, class: "w-full bg-slate-900 text-white p-2 rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :description, "Descrição", class: "block text-slate-400" %>
+      <%= f.text_area :description, class: "w-full bg-slate-900 text-white p-2 rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :priority, "Prioridade", class: "block text-slate-400" %>
+      <%= f.select :priority, Task.priorities.keys.map { |p| [p.humanize, p] }, {}, class: "w-full bg-slate-900 text-white p-2 rounded" %>
+    </div>
+
+    <div class="flex items-center gap-2 mb-4">
+      <%= f.check_box :completed %>
+      <%= f.label :completed, "Tarefa concluída?", class: "text-slate-400" %>
+    </div>
+    
+    <%= f.submit "Salvar Alterações", class: "bg-cyan-600 text-white px-4 py-2 rounded" %>
+    <%= link_to "Cancelar", project_path(@project), class: "ml-2 text-slate-400" %>
+  <% end %>
