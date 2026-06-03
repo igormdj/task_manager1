@@ -9,43 +9,7 @@
   <h2 class="text-xl font-semibold text-white mb-4">Tarefas do Projeto</h2>
   
   <div id="tasks" class="space-y-4">
-    <% if @tasks.any? %>
-      <% @tasks.each do |task| %>
-        <div class="bg-slate-800 border border-slate-700 p-5 rounded-lg flex items-center justify-between hover:border-cyan-500 transition-colors">
-          <div class="flex items-center gap-4 flex-1">
-            <%= button_to toggle_project_task_path(@project, task), method: :patch, class: "text-2xl" do %>
-              <%= task.completed? ? "✅" : "⬜" %>
-            <% end %>
-
-                <div>
-                  <strong class="text-white text-lg"><%= task.title %></strong>
-  
-                    <div class="mt-1">
-                      <span class="px-2 py-0.5 rounded text-xs font-bold uppercase 
-                        <%= task.priority == 'high' ? 'bg-red-600' : (task.priority == 'medium' ? 'bg-yellow-600' : 'bg-blue-600') %> 
-                        text-white">
-                        <%= task.priority.humanize %>
-                      </span>
-                    </div>
-
-                    <p class="text-slate-400 text-sm mt-1"><%= task.description %></p>
-                </div>
-
-            <div>
-              <strong class="text-white text-lg"><%= task.title %></strong>
-              <p class="text-slate-400 text-sm"><%= task.description %></p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <%= link_to "Editar", edit_project_task_path(@project, task), class: "text-cyan-400 hover:text-cyan-300 text-sm" %>
-            <%= link_to "Excluir", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "text-red-500 text-sm" %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-slate-500 italic">Nenhuma tarefa encontrada neste projeto.</p>
-    <% end %>
+    <%= render partial: "tasks/task", collection: @tasks, as: :task %>
   </div>
 
   <hr class="border-slate-700 my-10">

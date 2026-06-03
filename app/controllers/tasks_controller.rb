@@ -32,7 +32,11 @@ class TasksController < ApplicationController
 
   def toggle
     @task.toggle!(:completed)
-    redirect_to project_path(@project), notice: "Tarefa atualizada!"
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to project_path(@project), notice: "Tarefa atualizada!" }
+    end 
   end
 
   private
