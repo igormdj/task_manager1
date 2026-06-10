@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :project
+  has_many :task_tags
+  has_many :tags, through: :task_tags
   validates :title, presence: true, length: { minimum: 5 }
   validates :priority, presence: true
 
