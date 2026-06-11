@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to project_path(@project), notice: "Tarefa criada!"
     else
-      redirect_to project_path(@project), alert: "Erro ao criar tarefa: " + @task.errors.full_messages.to_sentence
+      render :new, alert: "Erro ao criar tarefa: " + @task.errors.full_messages.to_sentence
     end
   end
 
