@@ -17,11 +17,10 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = @project.tasks.find(params[:id])
     if @task.update(task_params)
       redirect_to project_path(@project), notice: "Tarefa atualizada!"
     else
-      render :edit # Se falhar, mostra o form de novo
+      render :edit, status: :unprocessable_entity
     end
   end
 
