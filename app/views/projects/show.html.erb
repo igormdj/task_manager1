@@ -7,10 +7,18 @@
   <hr class="border-slate-700 my-6">
 
   <h2 class="text-xl font-semibold text-white mb-4">Tarefas do Projeto</h2>
-  
-  <div id="tasks" class="space-y-4">
-    <%= render partial: "tasks/task", collection: @tasks, as: :task %>
-  </div>
+
+    <div id="tasks" class="space-y-4">
+      <% if @tasks.nil? %>
+        <p class="text-red-500">ERRO: A variável @tasks é NULA no Controller!</p>
+      <% elsif @tasks.respond_to?(:any?) && @tasks.any? %>
+        <%= render partial: "tasks/task", collection: @tasks, as: :task %>
+      <% else %>
+        <p class="text-slate-500 italic p-4 bg-slate-800 rounded border border-dashed border-slate-700">
+          Nenhuma tarefa encontrada neste projeto.
+        </p>
+      <% end %>
+    </div>
 
   <hr class="border-slate-700 my-10">
 

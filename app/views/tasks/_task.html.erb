@@ -11,9 +11,7 @@
       </strong>
       
       <div class="mt-1">
-        <span class="px-2 py-0.5 rounded text-xs font-bold uppercase 
-          <%= task.priority == 'high' ? 'bg-red-600' : (task.priority == 'medium' ? 'bg-yellow-600' : 'bg-blue-600') %> 
-          text-white">
+        <span class="px-2 py-0.5 rounded text-xs font-bold uppercase text-white <%= priority_bg_color(task.priority) %>">
           <%= task.priority.humanize %>
         </span>
       </div>
