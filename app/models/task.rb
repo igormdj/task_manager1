@@ -5,6 +5,10 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { minimum: 5 }
   validates :priority, presence: true
 
+  scope :completed, -> { where(completed: true) }
+  scope :pending, -> { where(completed: false) }
+  scope :high_priority, -> { where(priority: 'high') }
+
   # Defina o enum de forma simples
   enum :priority, { low: 0, medium: 1, high: 2 }
 

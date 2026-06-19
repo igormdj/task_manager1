@@ -11,6 +11,9 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.find(params[:id])
     @tasks = @project.tasks.order(created_at: :desc) || [] # Garante que @tasks seja um array mesmo que não haja tarefas
     @new_task = @project.tasks.build
+    @completed_tasks = @project.tasks.completed
+    @pending_tasks = @project.tasks.pending
+    @high_priority_tasks = @project.tasks.high_priority
   end
   
   def new 
