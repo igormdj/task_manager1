@@ -16,6 +16,12 @@ class ProjectsController < ApplicationController
     @completed_tasks = @tasks.completed.count
     @pending_tasks = @tasks.pending.count
     @high_priority_tasks = @project.tasks.high_priority
+
+    if @total_tasks > 0
+      @completion_percentage = (@completed_tasks.to_f / @total_tasks * 100).round(2)
+    else
+      @completion_percentage = 0
+    end
   end
   
   def new 
