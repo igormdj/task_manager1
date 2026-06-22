@@ -4,6 +4,21 @@
     <p class="text-slate-400 mt-2"><%= @project.description %></p>
   </div>
 
+  <div class="grid grid-cols-3 gap-4 my-6">
+    <div class="bg-slate-800 p-4 rounded border border-slate-700 text-center">
+      <div class="text-2xl font-bold text-white"><%= @total_tasks %></div>
+      <div class="text-xs text-slate-400 uppercase">Total</div>
+    </div>
+    <div class="bg-slate-800 p-4 rounded border border-slate-700 text-center">
+      <div class="text-2xl font-bold text-emerald-500"><%= @completed_tasks %></div>
+      <div class="text-xs text-slate-400 uppercase">Concluídas</div>
+    </div>
+    <div class="bg-slate-800 p-4 rounded border border-slate-700 text-center">
+      <div class="text-2xl font-bold text-amber-500"><%= @pending_tasks %></div>
+      <div class="text-xs text-slate-400 uppercase">Pendentes</div>
+    </div>
+  </div>
+
   <hr class="border-slate-700 my-6">
 
   <h2 class="text-xl font-semibold text-white mb-4">Tarefas do Projeto</h2>
