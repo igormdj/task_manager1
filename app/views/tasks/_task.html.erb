@@ -16,6 +16,10 @@
         </span>
       </div>
 
+      <p class="text-slate-400 text-sm mt-1">
+        Prazo: <%= task.due_date ? time_ago_in_words(task.due_date) + " restante" : "Sem prazo" %>
+      </p>
+
       <p class="text-slate-400 text-sm mt-1"><%= task.description %></p>
     </div>
   </div>
