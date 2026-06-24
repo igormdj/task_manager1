@@ -1,24 +1,9 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Task Manager - Nexus Tasks
+## Funcionalidades Implementadas até o momento:
+- Autenticação de Usuário (Devise).
+- Gestão de Projetos e Tarefas.
+- Relacionamentos (One-to-Many).
+- UI/UX com Tailwind CSS.
+- Feedback visual com Flash Messages.
+- Atualizações assíncronas com Turbo Streams.
+- Lógica de apresentação centralizada em View Helpers.
