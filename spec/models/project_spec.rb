@@ -7,8 +7,7 @@ RSpec.describe Project, type: :model do
     end
     
     it "é válido com título e usuário" do
-        usuario_teste = User.create!(email: "teste@teste", password: "password")
-        project = Project.new(title: "Projeto de Teste", user: usuario_teste)
+        project = create(:project)
         expect(project).to be_valid
     end
 end
