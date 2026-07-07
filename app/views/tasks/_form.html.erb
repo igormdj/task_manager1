@@ -1,4 +1,4 @@
-<%= form_with model: [@project, @task] do |f| %>
+<%= form_with model: [@project, @task], multipart: true do |f| %>
     <div class="mb-4">
       <%= f.label :title, "Título", class: "block text-slate-400" %>
       <%= f.text_field :title, class: "w-full bg-slate-900 text-white p-2 rounded" %>
