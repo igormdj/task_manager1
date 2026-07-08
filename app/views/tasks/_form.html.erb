@@ -23,6 +23,10 @@
       <%= f.label :document, "Anexar Documento (PDF)" %>
       <%= f.file_field :document, class: "w-full bg-slate-900 text-white p-2 rounded" %>
     </div>
+
+    <div>
+      <%= f.text_area :notes, class: "w-full bg-slate-900 text-white p-2 rounded" %>
+    </div>
     
     <%= f.submit "Salvar Alterações", class: "bg-cyan-600 text-white px-4 py-2 rounded" %>
     <%= link_to "Cancelar", project_path(@project), class: "ml-2 text-slate-400" %>

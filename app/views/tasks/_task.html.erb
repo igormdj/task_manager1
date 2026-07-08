@@ -22,6 +22,12 @@
 
       <p class="text-slate-400 text-sm mt-1"><%= task.description %></p>
 
+      <% if task.notes.present? %>
+        <div class="text-sm text-slate-400 mt-2 italic">
+          <strong>Observações:</strong> <%= task.notes %>
+        </div>
+      <% end %>
+
       <% if task.document.attached? %>
         <div class="mt-2">
           <%= link_to "📥 Baixar Documento", url_for(task.document), class: "text-cyan-500 text-sm hover:underline" %>
