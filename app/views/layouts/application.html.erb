@@ -11,6 +11,12 @@
 
     <p style="color: green;"><%= notice %></p>
 
+    <% flash.each do |type, message| %>
+      <div class="p-4 mb-4 rounded <%= type == 'notice' ? 'bg-green-100 text-green-700' : 'bg-red-500 text-red-700' %>">
+        <%= message %>
+      </div>
+    <% end %>
+
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>

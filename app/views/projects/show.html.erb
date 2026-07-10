@@ -6,15 +6,15 @@
 
   <div class="grid grid-cols-3 gap-4 my-6">
     <div class="bg-slate-800 p-4 rounded border border-slate-700 text-center">
-      <div class="text-2xl font-bold text-white"><%= @total_tasks %></div>
+      <div class="text-2xl font-bold text-white"><%= @project.total_tasks %></div>
       <div class="text-xs text-slate-400 uppercase">Total</div>
     </div>
     <div class="bg-slate-800 p-4 rounded border border-slate-700 text-center">
-      <div class="text-2xl font-bold text-emerald-500"><%= @completed_tasks %></div>
+      <div class="text-2xl font-bold text-emerald-500"><%= @project.completed_tasks %></div>
       <div class="text-xs text-slate-400 uppercase">Concluídas</div>
     </div>
     <div class="bg-slate-800 p-4 rounded border border-slate-700 text-center">
-      <div class="text-2xl font-bold text-amber-500"><%= @pending_tasks %></div>
+      <div class="text-2xl font-bold text-amber-500"><%= @project.pending_tasks %></div>
       <div class="text-xs text-slate-400 uppercase">Pendentes</div>
     </div>
   </div>
@@ -22,16 +22,16 @@
   <div class="my-6">
     <div class="flex justify-between text-sm text-slate-400 mb-1">
       <span>Progresso do Projeto</span>
-      <span><%= @completion_percentage %>%</span>
+      <span><%= @project.completion_percentage %>%</span>
     </div>
   
     <div class="w-full bg-slate-800 rounded-full h-2.5">
-      <% if @completion_percentage < 20 %>
+      <% if @project.completion_percentage < 20 %>
         <div class="bg-red-500 h-2.5 rounded-full transition-all duration-500" 
-             style="width: <%= @completion_percentage %>%"></div>
+             style="width: <%= @project.completion_percentage %>%"></div>
              <% else %>
         <div class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" 
-         style="width: <%= @completion_percentage %>%"></div>
+         style="width: <%= @project.completion_percentage %>%"></div>
       <% end %>
     </div>
   </div>
